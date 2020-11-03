@@ -19,7 +19,7 @@ class Student
 
         static void mesaj()
         {
-            cout<<"\nrau ati nimerit "<< anCurent;
+            cout<<"\nRau ati nimerit "<< anCurent;
         }
 
         Student(): ID_Matricol(00000)
@@ -29,10 +29,10 @@ class Student
             strcpy(this -> nume, "Anonim");
         }
 
-        Student(int varsta1, char* nume, int nrNote, int* Note):ID_Matricol(00)
+        Student(int id, int varsta, char* nume, int nrNote, int* note):ID_Matricol(id)
         {
 
-            this -> varsta = varsta1;
+            this -> varsta = varsta;
 
             this -> nume = new char[strlen(nume)+1];
             strcpy(this -> nume, nume);
@@ -48,12 +48,16 @@ class Student
 
         void afisare()
         {
-            cout<<"studentul are urm note: \n";
+            cout<<"Studentul are urm note: \n";
 
             for(int i = 0; i < this -> nrNote; i++)
                 cout << this -> note[i]<<" ";
         }
 
+        int getNrNote()
+        {
+            return this -> nrNote;
+        }
 
         char* getNume()
         {
@@ -83,6 +87,18 @@ class Student
             strcpy(this -> nume, a);
         }
 
+        void setNote(int *a, int b)
+        {
+            if(this -> note != nullptr)
+                delete[] this -> note;
+
+            this -> nrNote = b;
+            this -> note = new int[b];
+
+            for(int i = 0; i < b; i++)
+                this -> note[i] = a[i];
+        }
+
         ~Student()
         {
             if( this -> note != nullptr)
@@ -97,25 +113,33 @@ int Student::anCurent = 2;
 
 int main()
 {
-    //cout<< Student::anCurent;
-    //Student::mesaj();
-    Student s;
+    char nume[] = {"Alexes"};
+    char nume2[] = {"Lexis"};
 
-    char nume[] = {"poo"};
     int listaNote[] = {4,5,6,7};
+    int listaNote2[] ={6,7,8,9,8};
 
-    Student s2(3,nume,4,listaNote);
+    Student s2(458,18,nume,4,listaNote);
+    Student s3(768,19,nume2,5,listaNote2);
+
 
     s2.afisare();
+    cout<<"\n\n";
+    s3.afisare();
 
     cout<<"\n";
     cout<< s2.getNume();
 
-    int* note = s2.getNote();
-    cout<<"\n";
+    char num3[] = "Dani";
+    s2.setNume(num3);
+    cout<<"\n"<<s2.getNume()<<"\n";
 
-    for(int i = 0; i<4; i++)
-        cout<<*(note+i)<<" ";
+    int *note4 = s2.getNote();
+
+    cout<<"\n";
+    for(int i = 0; i < s2.getNrNote(); i++)
+        cout<<*(note4+i)<<" ";
+
 
     return 0;
 }
