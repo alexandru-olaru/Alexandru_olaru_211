@@ -1,1 +1,172 @@
+#include <iostream>
+#include <cstring>
 
+using namespace std;
+
+class Banca
+{
+	const int ID_Banca;
+	char* numeBanca;
+	int cui;
+	float valoare;
+	bool functionala;
+	char moneda;
+
+
+	public:
+		static int anCurent;
+
+	Banca(): ID_Banca(0)
+	{
+		this -> numeBanca = new char[strlen("Banca fantoma")+1];
+		strcpy(this -> numeBanca, "Banca fantoma");
+
+		this -> cui = 0;
+
+		this -> functionala = false;
+		this -> valoare = 0;
+		this -> moneda ='$';
+	}
+
+	Banca(int id, char* numeBanca, int cui, float val, bool func, char moneda): ID_Banca(id)
+	{
+		this -> numeBanca = new char[strlen(numeBanca)+1];
+		strcpy(this -> numeBanca,numeBanca);
+
+		this -> cui = cui;
+		this -> valoare = val;
+		this -> functionala = func;
+		this -> moneda = moneda;
+	}
+
+	Banca(int id): ID_Banca(id)
+	{
+	    this -> numeBanca = new char[strlen("Banca noua")+1];
+	    strcpy(this -> numeBanca, "Banca noua");
+
+	    this -> valoare = 0.0;
+	    this -> cui  = 0;
+	    this -> functionala = false;
+	    this -> moneda = '$';
+
+	}
+
+	Banca(const Banca &bc):ID_Banca(bc.ID_Banca)
+	{
+        this -> numeBanca = new char[strlen(bc.numeBanca) + 1];
+        strcpy(this -> numeBanca, bc.numeBanca);
+
+        this -> cui = bc.cui;
+        this -> valoare = bc.valoare;
+        this -> functionala = bc.functionala;
+        this -> moneda = bc.moneda;
+	}
+
+	void setNumeBanca(char *a)
+	{
+	    if(this -> numeBanca != NULL)
+            delete[] numeBanca;
+        this -> numeBanca = new char[strlen(a)+1];
+        strcpy(this -> numeBanca,a);
+	}
+
+	void setCui(int a)
+	{
+	    this -> cui = a;
+	}
+
+	void setValoare(float a)
+	{
+	    this -> valoare = a;
+	}
+
+	void setFunctionala(bool a)
+	{
+	    this -> functionala = a;
+	}
+
+	void setMoneda(char a)
+	{
+	    this -> moneda = a;
+	}
+
+	char* getNumeBanca()
+	{
+	    return this -> numeBanca;
+	}
+
+	int getCui()
+	{
+	    return this -> cui;
+	}
+
+	float getValoare()
+	{
+	    return this -> valoare;
+	}
+
+	bool getFunctionala()
+	{
+	    return this -> functionala;
+	}
+
+	char getMoneda()
+	{
+	    return this -> moneda;
+	}
+
+	int getID_Banca()
+	{
+	    return this -> ID_Banca;
+	}
+
+	friend istream &operator>> (istream &in, Banca b)
+	{
+	    char aux[100];
+
+	    cout << "\nIntrodu nume banca: ";
+	    in >> aux;
+	    if(b.numeBanca != NULL)
+            delete[] b.numeBanca;
+        b.numeBanca = new char[strlen(aux)+1];
+        strcpy(b.numeBanca,aux);
+
+        cout << "\nIntrodu CUI: ";
+        in >> b.cui;
+
+        cout << "\nIntrodu valoarea bancii: ";
+        in >> b.valoare;
+
+        cout << "\nCu ce moneda lucreaza?: ";
+        in >> b.moneda;
+
+        cout << "\nSpune daca e functionala(1 = este, 0 = nu este): ";
+        in >> b.functionala;
+
+	    return in;
+	}
+
+	friend ostream &operator<<(ostream &out, const Banca b)
+	{
+	    out << "Banca cu ID:" << b.ID_Banca << " si numele: *" << b.numeBanca << "* are o valoare de: " << b.valoare << b.moneda << " si are CUI: "<< b.cui;
+	    if(b.functionala == 1)out << ". In plus este functionala.\n";
+	    else out << ". In plus nu este functionala\n";
+
+	    return out;
+	}
+
+};
+
+
+int main()
+{
+	char a[]="BT";
+
+	Banca b1(22,a,4343346,12.4,1,'$');
+	Banca b2;
+
+    cin >> b2;
+
+    cout << b2;
+	return 0;
+}
