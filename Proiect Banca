@@ -8,7 +8,9 @@ class Banca
 	const int ID_Banca;
 	char* numeBanca;
 	int cui;
-	float valoare;
+	int* ratings;
+	int nrRatings; // note de la 1 la 5
+	float valoare; // valoare bancii
 	bool functionala;
 	char moneda;
 
@@ -22,16 +24,25 @@ class Banca
 		strcpy(this -> numeBanca, "Banca fantoma");
 
 		this -> cui = 0;
+		this -> nrRatings = 0;
+
+        this -> ratings = new int[this -> nrRatings];
 
 		this -> functionala = false;
 		this -> valoare = 0;
 		this -> moneda ='$';
 	}
 
-	Banca(int id, char* numeBanca, int cui, float val, bool func, char moneda): ID_Banca(id)
+	Banca(int id, char* numeBanca, int cui, float val, bool func, char moneda, int nrRatings, int* ratings): ID_Banca(id)
 	{
 		this -> numeBanca = new char[strlen(numeBanca)+1];
 		strcpy(this -> numeBanca,numeBanca);
+
+		this -> nrRatings = nrRatings;
+        this -> ratings = new int[this -> nrRatings];
+        for(int i = 0; i < this -> nrRatings; i++)
+            this -> ratings[i] = ratings[i];
+
 
 		this -> cui = cui;
 		this -> valoare = val;
@@ -44,6 +55,9 @@ class Banca
 	    this -> numeBanca = new char[strlen("Banca noua")+1];
 	    strcpy(this -> numeBanca, "Banca noua");
 
+	    this -> nrRatings = 0;
+        this -> ratings = new int[this -> nrRatings];
+
 	    this -> valoare = 0.0;
 	    this -> cui  = 0;
 	    this -> functionala = false;
@@ -55,6 +69,11 @@ class Banca
 	{
         this -> numeBanca = new char[strlen(bc.numeBanca) + 1];
         strcpy(this -> numeBanca, bc.numeBanca);
+
+        this -> nrRatings = bc.nrRatings;
+        this -> ratings = new int[this -> nrRatings];
+        for(int i = 0; i < this -> nrRatings; i++)
+            this -> ratings[i] = bc.ratings[i];
 
         this -> cui = bc.cui;
         this -> valoare = bc.valoare;
@@ -90,6 +109,17 @@ class Banca
 	    this -> moneda = a;
 	}
 
+	void setRatings(int* a, int b)
+	{
+	    this -> nrRatings = b;
+
+	    if(this -> ratings != NULL)
+            delete[] this -> ratings;
+        this ->ratings = new int[b];
+        for(int i = 0; i<b; i++)
+            this -> ratings[i] = a[i];
+	}
+
 	char* getNumeBanca()
 	{
 	    return this -> numeBanca;
@@ -120,7 +150,17 @@ class Banca
 	    return this -> ID_Banca;
 	}
 
-	friend istream &operator>> (istream &in, Banca b)
+    int getNrRatings()
+    {
+        return this -> nrRatings;
+    }
+
+    int* getRatings()
+    {
+        return this -> ratings;
+    }
+
+	friend istream &operator>> (istream &in, Banca &b)
 	{
 	    char aux[100];
 
@@ -134,25 +174,128 @@ class Banca
         cout << "\nIntrodu CUI: ";
         in >> b.cui;
 
+        cout << "\nSpune daca e functionala(1 = este, 0 = nu este): ";
+        in >> b.functionala;
+
         cout << "\nIntrodu valoarea bancii: ";
         in >> b.valoare;
 
         cout << "\nCu ce moneda lucreaza?: ";
         in >> b.moneda;
 
-        cout << "\nSpune daca e functionala(1 = este, 0 = nu este): ";
-        in >> b.functionala;
+        cout << "\nCate note a primit?:";
+        in >> b.nrRatings;
 
+
+        if(b.ratings != NULL)
+            delete[] b.ratings;
+        b.ratings = new int[b.nrRatings];
+
+        cout << "\nCare sunt aceste note?: ";
+        for(int i = 0; i < b.nrRatings; i++)
+        {
+            in >> b.ratings[i];
+        }
 	    return in;
 	}
 
 	friend ostream &operator<<(ostream &out, const Banca b)
 	{
 	    out << "Banca cu ID:" << b.ID_Banca << " si numele: *" << b.numeBanca << "* are o valoare de: " << b.valoare << b.moneda << " si are CUI: "<< b.cui;
-	    if(b.functionala == 1)out << ". In plus este functionala.\n";
-	    else out << ". In plus nu este functionala\n";
+	    if(b.functionala == 1)out << ". In plus este functionala ";
+	    else out << ". In plus nu este functionala ";
+
+	    out << "si a primit "<<b.nrRatings<<" note:\n";
+	    for(int i =0; i < b.nrRatings; i++)
+            out << b.ratings[i] <<" ";
+        out << "\n";
 
 	    return out;
+	}
+
+	~Banca()
+	{
+	    if(this -> numeBanca != NULL)
+            delete[] this -> numeBanca;
+        if(this -> ratings != NULL)
+            delete[] this-> ratings;
+	}
+
+
+	Banca &operator= (const Banca &b)
+	{
+	    if(this != &b)
+        {
+            if(this -> numeBanca != NULL)
+                delete[] this -> numeBanca;
+            this -> numeBanca = new char[strlen(b.numeBanca)+1];
+            strcpy(this -> numeBanca, b.numeBanca);
+
+            this -> nrRatings = b.nrRatings;
+            if(this -> ratings != NULL)
+                delete[] this-> ratings;
+            this -> ratings = new int[this -> nrRatings];
+            for(int i = 0; i < this -> nrRatings; i++)
+                this -> ratings[i] = b.ratings[i];
+
+            this -> cui = b.cui;
+            this -> valoare = b.valoare;
+            this -> functionala = b.functionala;
+            this -> moneda = b.moneda;
+        }
+
+        return *this;
+	}
+
+	Banca &operator+ (float a)
+	{
+	    this -> valoare = this -> valoare + a;
+
+	    return *this;
+	}
+
+	Banca &operator- (float a)
+	{
+	    this -> valoare = this -> valoare - a;
+
+	    return *this;
+	}
+
+	const Banca operator++ ()
+	{
+	    this -> valoare++;
+	    return *this;
+	}
+
+	const Banca operator++ (int)
+	{
+	    Banca aux(*this);
+	    this -> valoare++;
+	    return aux;
+	}
+
+	friend bool operator== (const Banca &a, const Banca &b)
+	{
+	    if(a.valoare == b.valoare and a.cui == b.cui and a.moneda == b.moneda and strcmp(a.numeBanca,b.numeBanca)== 0 and a.functionala == b.functionala)
+            return true;
+        else return false;
+	}
+
+	friend bool operator< (const Banca &a, const Banca &b)
+	{
+	    if(a.valoare < b.valoare)
+            return true;
+        else return false;
+
+	}
+
+    int operator[] (int i)
+	{
+	    if(i >= 0 and this -> nrRatings > i)
+            return this -> ratings[i];
+        else
+            cout << "indice invalid";
+        return -1;
 	}
 
 };
@@ -161,12 +304,14 @@ class Banca
 int main()
 {
 	char a[]="BT";
+	int n[] = {3,4,5,9};
 
-	Banca b1(22,a,4343346,12.4,1,'$');
-	Banca b2;
+	Banca b1(22,a,4343346,12.4,1,'$',4,n);
+	Banca b2(45);
 
-    cin >> b2;
+	b2.setRatings(n,4);
 
-    cout << b2;
+    cout << b1[3];
+
 	return 0;
 }
