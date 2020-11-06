@@ -203,12 +203,14 @@ public:
 	friend ostream &operator<< (ostream &out, const Banca b)
 	{
 	    out << "Banca cu ID:" << b.ID_Banca << " si numele: *" << b.numeBanca << "* are o valoare de: " << b.valoare << b.moneda << " si are CUI: "<< b.cui;
-	    if(b.functionala == 1)out << ". In plus este functionala ";
+	    if(b.functionala == 1)
+            out << ".\nIn plus este functionala ";
+
 	    else out << ". In plus nu este functionala ";
 
-	    out << "si a primit "<<b.nrRatings<<" note:\n";
+	    out << "si a primit "<<b.nrRatings<<" note:";
 	    for(int i =0; i < b.nrRatings; i++)
-            out << b.ratings[i] <<" ";
+            out << " " << b.ratings[i] ;
         out << "\n";
 
 	    return out;
@@ -1317,28 +1319,83 @@ int main()
 
 {
 	char a[] = "BT";
-	char adress[] = "str Sibiu";
-	char nume[] = "Alexx Potter";
-	float credite[] = {2.22, 33.2};
-
 	int n[] = {3,4,5,9};
+
 	Banca b1(22,a,4343346,12.4,1,'$',4,n);
+	Banca b2, b3;
+
+	cout << "Vom afisa prima banca b1 cu constructorul complet.\n\n";
+	cout << b1;
+
+	cout << "\nA doua banca se va citi de la tastatura si se va afisa ulteriror.\n";
+	cin >> b2;
+	cout << "\n" << b2 << "\n";
+
+	cout << "\nFolsim operatorul = creand banca 3(b1 = b3)\n\n";
+
+	b3 = b1;
+
+	cout << b3;
+
+	cout << "\nFolosim operatorul + (b3 = b3+23)\n\n";
+
+	b3 = b3+23;
+	cout << b3 << "\n\n------------------------------------------------\n";
+
+	char adress[] = "strada Sibiu";
+
+	cout << "Vom crea 3 sedii, s1= constructor cu toate atributele, s2= de la tastatura, s3= prin copiere de la s2\n\n";
 
     Sediu s1(b1, 1, adress, 4,n,true,6654.4);
+    Sediu s2;
+
+    cout << "Afisare sediul 1:\n" << s1 << "\n\nAcum von citi sediul 2 de la tastatura:\n";
+    cin >> s2;
+    cout <<"Afisam sediul 2\n\n" << s2 << "\n\nSediul 3 va lua val sediului 2\n\n";
+
+
+    Sediu s3(s2);
+
+    cout << s3 << "\n\nFolosim operatorul ++\n\n";
+    s3++;
+    cout << s3 << "\n\n---------------------------------------\n\nVom crea 2 angajati, unul prin constructor, iar unul de la tastatura\n\n";
+
+    char nume[] = "Alexx Potter";
+	float credite[] = {2.22, 33.2};
 
     Angajat a1(453, nume, 20, 'M', 4, n, 2242, s1, b1);
-    Angajat a2;
+    Angajat a2(32);
 
-    Angajat a3 = a1;
+    cout << "Vom afisa primul angajat, apoi il vom citit pe al doile si ii afisam la final\n\n";
 
-    a3 = a3+ 2342;
-    a3++;
+    cin >> a2;
+
+    cout << a1 << "\n\n";
+    cout << a2 << "\n\nVom folosi operatorul +(adauga bani) apoi ++(adauga ani) si afisam a2 pt fiecare.\n\n";
+    a2++;
+    cout << a2 << "\n\n";
+
+    a2 = a2 + 23;
+    cout << a2 << "\n\n";
+
+    cout << "\n\n---------------------------------------\n\nVom crea 2 clienti, unul prin constructor, iar unul de la tastatura\n\n";
+
+    cout << "Vom afisa primul client, apoi il vom citit pe al doile si ii afisam la final\n\n";
 
 
-    Client c1(33,nume,20,'M',2,credite,0);
+    Client c1(33,nume,20,'M',2,credite,0),c2;
+    cin >> c2;
 
+    cout << c1 << "\n\n";
+    cout << c2 << "\n\nVom folosi operatorul +(adauga credit) apoi ++(adauga ani) si afisam a2 pt fiecare.\n\n";
+    c2++;
+    cout << c2 << "\n\n";
 
-   cout<< c1[1];
+    c2 = c2 + 23;
+    cout << c2 << "\n\n";
+
+    cout << "Vom arata primul credit []\n\n";
+    cout << c2[1] << "\n\n --------------Finished-------------------\n\n\n\n";
 
 	return 0;
 }
