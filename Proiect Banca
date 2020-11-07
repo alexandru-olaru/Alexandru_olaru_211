@@ -216,16 +216,6 @@ public:
 	    return out;
 	}
 
-	~Banca()
-	{
-	    if(this -> numeBanca != NULL)
-            delete[] this -> numeBanca;
-        if(this -> ratings != NULL)
-        {
-            delete[] this -> ratings;
-        }
-	}
-
 	Banca &operator= (const Banca &b)
 	{
 	    if(this != &b)
@@ -336,6 +326,21 @@ public:
         else
             cout << "indice invalid";
         return -1;
+	}
+
+	explicit operator int()
+	{
+	    return (int) this -> valoare;
+	}
+
+	~Banca()
+	{
+	    if(this -> numeBanca != NULL)
+            delete[] this -> numeBanca;
+        if(this -> ratings != NULL)
+        {
+            delete[] this -> ratings;
+        }
 	}
 
 };
@@ -706,6 +711,11 @@ public:
         else
             return -2;
     }
+
+    explicit operator int()
+    {
+        return (int) this -> baniSeif;
+    }
 };
 
 class Angajat
@@ -1021,6 +1031,11 @@ public:
         else
             return -3;
     }
+
+    explicit operator int()
+    {
+        return (int) this -> salariu;
+    }
 };
 
 class Client
@@ -1313,6 +1328,10 @@ public:
             return -4;
     }
 
+    explicit operator int()
+    {
+        return (int) this -> varsta;
+    }
 };
 
 int main()
