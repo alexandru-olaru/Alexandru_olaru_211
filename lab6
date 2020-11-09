@@ -1,0 +1,127 @@
+#include <iostream>
+#include <string.h>
+
+using namespace std;
+
+class Persoana
+{
+    string nume;
+    char* prenume;
+    int varsta;
+
+public:
+
+    Persoana()
+    {
+        nume ="Anonim";
+        this -> prenume = new char[strlen("Anonim")+1];
+        strcpy(prenume, "Anonim");
+        varsta = 0;
+    }
+
+    Persoana(string nume, char* prenume, int varsta)
+    {
+        this -> nume = nume;
+        this -> varsta = varsta;
+        this -> prenume = new char[strlen(prenume)+1];
+        strcpy(this -> prenume, prenume);
+
+    }
+
+    Persoana(const Persoana &p)
+    {
+        this -> nume = p.nume;
+        this -> varsta = p.varsta;
+        this -> prenume = new char[strlen(p.prenume)+1];
+        strcpy(this -> prenume, p.prenume);
+    }
+
+    Persoana &operator=(const Persoana &p)
+    {
+        if(this != &p)
+        {
+            this -> nume = p.nume;
+            this -> varsta = p.varsta;
+
+            if(this -> prenume != NULL)
+                delete[] this -> prenume;
+            this -> prenume = new char[strlen(p.prenume)+1];
+            strcpy(this -> prenume, p.prenume);
+
+        }
+        return *this;
+    }
+
+    void afisare()
+    {
+            cout << this -> nume << " " << this -> prenume <<" " << this -> varsta << "\n";
+
+
+    }
+
+};
+
+class Student: public Persoana
+{
+
+private:
+    string facultate;
+
+public:
+    Student():Persoana()
+    {
+        this -> facultate = "Anomim1";
+    }
+
+    Student(string nume, char* prenume, int varsta, string facultate):Persoana(nume, prenume, varsta)
+    {
+        this -> facultate = facultate;
+    }
+
+    Student(const Student &s): Persoana(s)
+    {
+        this -> facultate = s.facultate;
+    }
+
+    Student &operator= (const Student &s)
+    {
+        if(this != &s)
+        {
+            Persoana:: operator=(s);
+            this -> facultate = facultate;
+        }
+        return *this;
+    }
+
+    void afisare()
+    {
+        cout << this -> facultate;
+    }
+
+    void afisare2()
+    {
+        Persoana:: afisare();
+        cout << " " << this -> facultate<< "\n";
+    }
+
+};
+
+
+int main()
+{
+    char prenume[] = "Lex";
+    Student s1;
+
+    //s1.afisare();
+
+    Persoana p("bon", prenume,20);
+    Student s2(s1);
+    Student s3;
+    Student s4("Lele",prenume,22,"chimie");
+    p.afisare();
+    s3 =s4;
+    s3.afisare2();
+
+
+    return 0;
+}
