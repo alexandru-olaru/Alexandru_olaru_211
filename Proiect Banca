@@ -926,10 +926,10 @@ public:
     ~Angajat()
     {
         if(this -> numeAngajat != NULL)
-            delete this -> numeAngajat;
+            delete[] this -> numeAngajat;
 
         if(this -> calificative != NULL)
-            delete this -> calificative;
+            delete[] this -> calificative;
 
         if(this -> numeBanca != NULL)
             delete[] this -> numeBanca;
