@@ -1,3 +1,4 @@
 # Alexandru_olaru_211
 Rezolvari POO
-In Proiect, la momentul actual se executa catea comenzi de afisare, de citire, si se folosesc cativa operatori.
+Proiectul complet se afla in *Gestiune banca.zip* cu toate fisierele necesare pt citire
+Acesta are un meniu foarte intuitiv complet functional
