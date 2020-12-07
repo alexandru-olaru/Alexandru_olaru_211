@@ -282,40 +282,40 @@ public:
 	    return aux;
 	}
 
-	friend bool operator== (const Banca &a, const Banca &b)
+	bool operator== (Banca &b)
 	{
-	    if(a.valoare == b.valoare and a.cui == b.cui and a.moneda == b.moneda and strcmp(a.numeBanca,b.numeBanca)== 0 and a.functionala == b.functionala)
+	    if(this -> valoare == b.valoare and this ->cui == b.cui and this -> moneda == b.moneda and strcmp(this -> numeBanca,b.numeBanca)== 0 and this -> functionala == b.functionala)
             return true;
         else return false;
 	}
 
-	friend bool operator< (const Banca &a, const Banca &b)
+	bool operator< (Banca &b)
 	{
-	    if(a.valoare < b.valoare)
-            return true;
-        else return false;
-
-	}
-
-	friend bool operator> (const Banca &a, const Banca &b)
-	{
-	    if(a.valoare > b.valoare)
+	    if(this -> valoare < b.valoare)
             return true;
         else return false;
 
 	}
 
-	friend bool operator<= (const Banca &a, const Banca &b)
+	bool operator> (Banca &b)
 	{
-	    if(a.valoare <= b.valoare)
+	    if(this -> valoare > b.valoare)
             return true;
         else return false;
 
 	}
 
-	friend bool operator>= (const Banca &a, const Banca &b)
+	bool operator<= (Banca &b)
 	{
-	    if(a.valoare >= b.valoare)
+	    if(this -> valoare <= b.valoare)
+            return true;
+        else return false;
+
+	}
+
+	bool operator>= (Banca &b)
+	{
+	    if(this -> valoare >= b.valoare)
             return true;
         else return false;
 
@@ -618,41 +618,41 @@ public:
         return *this;
     }
 
-    friend bool operator== (const Sediu &a, const Sediu &b)
+    bool operator== (Sediu &b)
     {
-        if(strcmp(a.numeBanca,b.numeBanca) == 0 and a.baniSeif == b.baniSeif and a.ID_Sediu == b.ID_Sediu)
+        if(strcmp(this -> numeBanca,b.numeBanca) == 0 and this -> baniSeif == b.baniSeif and this -> ID_Sediu == b.ID_Sediu)
             return true;
         else
             return false;
     }
 
-    friend bool operator< (const Sediu &a, const Sediu &b)
+    bool operator< (Sediu &b)
     {
-        if(a.baniSeif < b.baniSeif)
+        if(this -> baniSeif < b.baniSeif)
             return true;
         else
             return false;
     }
 
-    friend bool operator> (const Sediu &a, const Sediu &b)
+    bool operator> (Sediu &b)
     {
-        if(a.baniSeif > b.baniSeif)
+        if(this -> baniSeif > b.baniSeif)
             return true;
         else
             return false;
     }
 
-    friend bool operator>= (const Sediu &a, const Sediu &b)
+    bool operator>= (Sediu &b)
     {
-        if(a.baniSeif >= b.baniSeif)
+        if(this -> baniSeif >= b.baniSeif)
             return true;
         else
             return false;
     }
 
-    friend bool operator<= (const Sediu &a, const Sediu &b)
+    bool operator<= (Sediu &b)
     {
-        if(a.baniSeif <= b.baniSeif)
+        if(this -> baniSeif <= b.baniSeif)
             return true;
         else
             return false;
@@ -925,42 +925,44 @@ public:
 
     }
 
-    friend bool operator== (const Angajat &a, const Angajat &b)
+    bool operator== (Angajat &b)
     {
-        if(strcmp(a.numeAngajat,b.numeAngajat) == 0 and a.varsta == b.varsta and a.idSediu == b.idSediu)
+        if(strcmp(this -> numeAngajat,b.numeAngajat) == 0 and this -> varsta == b.varsta and this -> idSediu == b.idSediu)
             return true;
 
         else
             return false;
     }
 
-    friend bool operator< (const Angajat &a, const Angajat &b)
+    bool operator< (Angajat &b)
     {
-        if(a.varsta < b.varsta)
+        if(this -> varsta < b.varsta)
             return true;
         else
             return false;
     }
 
-    friend bool operator<= (const Angajat &a, const Angajat &b)
+    bool operator<= (Angajat &b)
     {
-        if(a.varsta <= b.varsta)
+        if(this -> varsta <= b.varsta)
             return true;
+
         else
             return false;
     }
 
-    friend bool operator> (const Angajat &a, const Angajat &b)
+    bool operator> (Angajat &b)
     {
-        if(a.varsta > b.varsta)
+        if(this -> varsta > b.varsta)
             return true;
+
         else
             return false;
     }
 
-    friend bool operator>= (const Angajat &a, const Angajat &b)
+    bool operator>= (Angajat &b)
     {
-        if(a.varsta >= b.varsta)
+        if(this -> varsta >= b.varsta)
             return true;
         else
             return false;
@@ -1219,42 +1221,46 @@ public:
         return *this;
     }
 
-    friend bool operator== (const Client &a, const Client &b)
+    bool operator== (Client &b)
     {
-        if (strcmp(a.numeClient, b.numeClient) == 0 and a.varsta == b.varsta)
+        if (strcmp(this -> numeClient, b.numeClient) == 0 and this -> varsta == b.varsta)
             return true;
         else
             return false;
     }
 
-    friend bool operator< (const Client &a, const Client &b)
+    bool operator< (Client &b)
     {
-        if (a.varsta < b.varsta)
+        if (this -> varsta < b.varsta)
             return true;
+
         else
             return false;
     }
 
-    friend bool operator<= (const Client &a, const Client &b)
+    bool operator<= (Client &b)
     {
-        if (a.varsta <= b.varsta)
+        if (this ->varsta <= b.varsta)
             return true;
+
         else
             return false;
     }
 
-    friend bool operator> (const Client &a, const Client &b)
+    bool operator> (Client &b)
     {
-        if (a.varsta > b.varsta)
+        if (this -> varsta > b.varsta)
             return true;
+
         else
             return false;
     }
 
-    friend bool operator>= (const Client &a, const Client &b)
+    bool operator>= (Client &b)
     {
-        if (a.varsta >= b.varsta)
+        if (this -> varsta >= b.varsta)
             return true;
+
         else
             return false;
     }
@@ -1517,12 +1523,9 @@ public:
     }
 };
 
-
 int main()
-
 {
     ifstream file;
-
     file.open("datebanca.txt");
 
     int n;
@@ -1552,7 +1555,7 @@ int main()
         file >> cui >> val >> funct >> ban >> num;
 
         int nums[num];
-        
+
         for(int j = 0; j < num; j++)
            file >> nums[j];
 
@@ -1616,7 +1619,6 @@ int main()
     }
 
     file.close();
-
     file.open("dateclienti.txt");
 
     file >> n;
@@ -1644,7 +1646,6 @@ int main()
         clienti.push_back(c);
     }
 
-
     int rating[]= {4,3,5};
     char nume[] = "CTB";
 
@@ -1654,6 +1655,8 @@ int main()
     int calif[] = {8,7,9};
     char nume2[] = "Florescu Alex";
     float note[] = {8,7,9};
+
+    //am adaugat cate un element in cazul in care lipsesc fisierele de citire
 
     Banca b1(1, nume, 99333211, 54454.3, 1, '$', 3, rating);
     Sediu s1(b1,5,adresa,2,birouri,0,44345);
@@ -1688,7 +1691,7 @@ int main()
             {
 
                 cout << "==========Bine ai venit la departamentul *Banca*==========\n\n";
-                cout << "Lista optiuni: \n 1.Adaugare banca\n 2.Afisare banci\n 3.Creste valoarea bancii\n 4.Scade valoarea bancii\n 5.Eliminare banca\n 6.Iesire\n\nIntrodu optiunea: ";
+                cout << "Lista optiuni: \n 1.Adaugare banca\n 2.Afisare banci\n 3.Creste valoarea bancii\n 4.Scade valoarea bancii\n 5.Eliminare banca\n 6.Compara doua banci\n 7.Afiseaza una din note(de la 1 la 5)\n 8.Iesire\n\nIntrodu optiunea: ";
                 cin >> n;
 
                 switch(n)
@@ -1705,7 +1708,7 @@ int main()
                             banci.push_back(bb);
                             break;
                         }
-                   
+
                     case 2:
                         {
                             cout << "+++--- Afisare banci ---+++\n\n";
@@ -1713,7 +1716,7 @@ int main()
                             cout << banci[x] << "\n";
                             break;
                         }
-                    
+
                     case 3:
                         {
                             int s, q;
@@ -1724,7 +1727,7 @@ int main()
                             banci[s] = banci[s]+ q;
                             break;
                         }
-                    
+
                     case 4:
                         {
                             int s, q;
@@ -1735,7 +1738,7 @@ int main()
                             banci[s] = banci[s]- q;
                             break;
                         }
-                    
+
                     case 5:
                         {
                             cout << "----- Eliminare banca ------\n\n Introdu banca ce vrei sa o elimini din 2.Afisare banci(numerotare de la 0): ";
@@ -1744,13 +1747,49 @@ int main()
                             banci.erase(banci.begin()+u);
                             break;
                         }
-                    
+
                     case 6:
                         {
-                            cout << "--------- Iesire din departametul Banca ---------\n\n";
+                            cout << "\n-----Introdu pozitiile celor doua banci din 2.Afisare banci(numerotare de la 0)-----\n\nPrima banca: ";
+                            int a,b;
+                            cin >> a;
+
+                            cout << "A doua banca: ";
+                            cin >> b;
+
+                            if(banci[a] < banci[b])
+                                cout << "\n*****Prima banca are o valoare mai mica decat a doua*****\n\n";
+
+                            else
+                                if(banci[a] > banci[b])
+                                    cout << "\n*****Prima banca are o valoare mai mare decat a doua*****\n\n";
+
+                                else
+                                    if(banci[a]== banci[b])
+                                            cout << "\n*****Bancile au aceleasi valori*****\n\n";
+
                             break;
                         }
-                    
+
+                    case 7:
+                        {
+                            cout << "\nIntrodu pozitia bancii din 2.Afisare banci si idicele notei dorite(numerotare de la 0)\nPozitia bancii: ";
+                            int q,p;
+                            cin >> q;
+                            cout << "\nIndicele notei: ";
+                            cin >> p;
+                            cout << "\n**** Nota este: " << banci[q][p] << " ****\n\n";
+
+                            break;
+                        }
+
+                    case 8:
+                        {
+                            cout << "--------- Iesire din departametul Banca ---------\n\n";
+
+                            break;
+                        }
+
                     default:
                         {
                             cout << "\n--- Ai gresit valoarea... =( ---\n\n";
@@ -1758,7 +1797,7 @@ int main()
 
                 }
 
-            }while(n != 6);
+            }while(n != 8);
             break;
         }
 
@@ -1784,7 +1823,7 @@ int main()
                             sedii.push_back(bb);
                             break;
                         }
-                    
+
                     case 2:
                         {
                             cout << "+++--- Afisare sedii ---+++\n\n";
@@ -1792,7 +1831,7 @@ int main()
                             cout << sedii[x] << "\n";
                             break;
                         }
-                    
+
                     case 3:
                         {
                             int s, q;
@@ -1803,7 +1842,7 @@ int main()
                             sedii[s] = sedii[s]+ q;
                             break;
                         }
-                  
+
                     case 4:
                         {
                             int s, q;
@@ -1814,7 +1853,7 @@ int main()
                             sedii[s] = sedii[s]- q;
                             break;
                         }
-                    
+
                     case 5:
                         {
                             cout << "----- Eliminare sediu ------\n\n Introdu sediul ce vrei sa il elimini din 2.Afisare sedii(numerotare de la 0): ";
@@ -1823,13 +1862,13 @@ int main()
                             sedii.erase(sedii.begin()+u);
                             break;
                         }
-                   
+
                     case 6:
                         {
                             cout << "--------- Iesire din departametul Sediu ---------\n\n";
                             break;
                         }
-                    
+
                     default:
                         {
                             cout << "\n--- Ai gresit valoarea... =( ---\n\n";
@@ -1862,7 +1901,7 @@ int main()
                             angajati.push_back(bb);
                             break;
                         }
-                   
+
                     case 2:
                         {
                             cout << "+++---+ Afisare angajati +---+++\n\n";
@@ -1870,7 +1909,7 @@ int main()
                             cout << angajati[x] << "\n";
                             break;
                         }
-                    
+
                     case 3:
                         {
                             int s, q;
@@ -1881,7 +1920,7 @@ int main()
                             angajati[s] = angajati[s]+ q;
                             break;
                         }
-                   
+
                     case 4:
                         {
                             int s, q;
@@ -1892,7 +1931,7 @@ int main()
                             angajati[s] = angajati[s]- q;
                             break;
                         }
-                   
+
                     case 5:
                         {
                             cout << "----- Eliminare angajat ------\n\n Introdu angajatul ce vrei sa il elimini din 2.Afisare angajati(numerotare de la 0): ";
@@ -1901,13 +1940,13 @@ int main()
                             angajati.erase(angajati.begin()+u);
                             break;
                         }
-                   
+
                     case 6:
                         {
                             cout << "--------- Iesire din departametul Angajat ---------\n\n";
                             break;
                         }
-                    
+
                     default:
                         {
                             cout << "\n--- Ai gresit valoarea... =( ---\n\n";
@@ -1940,7 +1979,7 @@ int main()
                             clienti.push_back(bb);
                             break;
                         }
-                   
+
                     case 2:
                         {
                             cout << "+++---+ Afisare clienti +---+++\n\n";
@@ -1948,7 +1987,7 @@ int main()
                             cout << clienti[x] << "\n";
                             break;
                         }
-                    
+
                     case 3:
                         {
                             int s;
@@ -1960,7 +1999,7 @@ int main()
                             clienti[s] = clienti[s]+ q;
                             break;
                         }
-                   
+
                     case 4:
                         {
                             cout << "----- Eliminare client ------\n\n Introdu clientul ce vrei sa il elimini din 2.Afisare clienti(numerotare de la 0): ";
@@ -1969,13 +2008,13 @@ int main()
                             clienti.erase(clienti.begin()+u);
                             break;
                         }
-                    
+
                     case 5:
                         {
                             cout << "--------- Iesire din departametul Client ---------\n\n";
                             break;
                         }
-                    
+
                     default:
                         {
                             cout << "\n--- Ai gresit valoarea... =( ---\n\n";
@@ -1985,7 +2024,7 @@ int main()
             }while(n != 5);
             break;
         }
-  
+
     case 5:
         {
             do
@@ -2007,7 +2046,7 @@ int main()
                             copii.push_back(bb);
                             break;
                         }
-                   
+
                     case 2:
                         {
                             cout << "+++---+ Afisare copii +---+++\n\n";
@@ -2015,7 +2054,7 @@ int main()
                             cout << copii[x] << "\n";
                             break;
                         }
-                   
+
                     case 3:
                         {
                             cout << "----- Eliminare copil ------\n\n Introdu copilul ce vrei sa il elimini din 2.Afisare copii(numerotare de la 0): ";
@@ -2024,13 +2063,13 @@ int main()
                             copii.erase(copii.begin()+u);
                             break;
                         }
-                    
+
                     case 4:
                         {
                             cout << "--------- Iesire din departametul copil ---------\n\n";
                             break;
                         }
-                   
+
                     default:
                         {
                             cout << "\n--- Ai gresit valoarea... =( ---\n\n";
@@ -2062,7 +2101,7 @@ int main()
                             sefi.push_back(bb);
                             break;
                         }
-                    
+
                     case 2:
                         {
                             cout << "+++---+ Afisare manageri +---+++\n\n";
@@ -2070,7 +2109,7 @@ int main()
                             cout << sefi[x] << "\n";
                             break;
                         }
-                    
+
                     case 3:
                         {
                             cout << "----- Eliminare manager ------\n\n Introdu managerul ce vrei sa il elimini din 2.Afisare manageri(numerotare de la 0): ";
@@ -2079,13 +2118,13 @@ int main()
                             sefi.erase(sefi.begin()+u);
                             break;
                         }
-                    
+
                     case 4:
                         {
                             cout << "--------- Iesire din departametul Manager ---------\n\n";
                             break;
                         }
-                    
+
                     default:
                         {
                             cout << "\n--- Ai gresit valoarea... =( ---\n\n";
@@ -2114,13 +2153,13 @@ int main()
                             cout << credite[x] << "\n";
                             break;
                         }
-                    
+
                     case 2:
                         {
                             cout << "--------- Iesire din departametul Lista credite ---------\n\n";
                             break;
                         }
-                   
+
                     default:
                         {
                             cout << "\n--- Ai gresit valoarea... =( ---\n\n";
@@ -2130,7 +2169,7 @@ int main()
             }while(n != 2);
             break;
         }
-        
+
     case 8:
         {
             cout << "----- La revedere =) -----\n";
@@ -2146,5 +2185,5 @@ int main()
     }while(n!= 8);
 
 	return 0;
-	
+
 }
