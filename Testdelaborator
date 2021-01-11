@@ -1,0 +1,376 @@
+/*Olaru Alexandru 211
+GNU GCC Compiler
+Szmenteanca Eduard
+*/
+
+#include <iostream>
+#include <cstring>
+#include <vector>
+
+using namespace std;
+
+class Vaccin
+{
+    string numeProducator;
+    float pret;
+    float temperaturaDepozitare;
+    string listaSubstante;
+
+public:
+    Vaccin()//asemanator cu proiect personal
+    {
+        numeProducator = "necunoscut";
+        this -> pret  = 0;
+        this -> temperaturaDepozitare = 0;
+        listaSubstante = "null";
+    }
+
+    Vaccin(string nume, float pret, float temperatura, string  lista)//asemanator cu proiect personal
+    {
+        this -> pret = pret;
+        numeProducator = nume;
+        this -> temperaturaDepozitare = temperatura;
+        listaSubstante = lista;
+    }
+
+    virtual void afisareSchemaVaccinare()=0; // laborator
+
+    string getNumeProducator()// asemanator cu proiect personal
+    {
+        return this -> numeProducator;
+    }
+
+    friend istream &operator>>(istream &in, Vaccin &v)//asemanaotr cu priect pers
+    {
+        cout << "Introdu nume producator: ";
+        in >> v.numeProducator;
+        cout << "\nIntrodu pret: ";
+        in >> v.pret;
+        cout << "\n Introdu temperatura: ";
+        in >> v.temperaturaDepozitare;
+        cout << "\nIntrodu lista substante: ";
+        in >> v.listaSubstante;
+
+        return in;
+    }
+
+    friend ostream &operator<<(ostream &out, const Vaccin &v)//asemanator proiect pers
+    {
+        out << "->Producatorul vaccinului este *" << v.numeProducator << "* acesta are pretul de" << v.pret;
+        out << "lei, se tine la tem de " << v.temperaturaDepozitare << "grade.\n-> Acesta este alacatuit din urmatoarele substante: ";
+        out << v.listaSubstante;
+
+        return out;
+    }
+      float getPret()
+    {
+        return pret;
+    }
+
+    ~Vaccin()// asemanator cu proiect personal
+    {
+
+    }
+};
+
+class VaccinAntiGripal: public Vaccin // asemanator cu proiect personal
+{
+    string tulpina;
+    bool respectaNormele;
+
+public:
+
+    VaccinAntiGripal(): Vaccin()// asemanator cu priect pers
+    {
+        tulpina ="necunoscuta";
+        respectaNormele = false;
+    }
+
+    VaccinAntiGripal(string nume, float pret, float temp, string lista, string tulpina, bool respecta): Vaccin(nume,pret,temp,lista)
+    {
+        this -> tulpina = tulpina;
+        respectaNormele = respecta;
+    }
+
+    void afisareSchemaVaccinare()
+    {
+        cout << "Se administrează la adulti o dozs de 0.5 ml, iar la copii si adolescenti o doza de 0.3 ml, repetandu-se din 2 in 2 ani.";
+    }
+
+    friend istream &operator>>(istream &in, VaccinAntiGripal &v)//asemanator proiect;
+    {
+        in >> (Vaccin&) v;
+
+        cout << "\nIntrodu tulpina: ";
+        in >> v.tulpina;
+        cout << "\nRespecta normele?(0=nu, 1=da): ";
+        in >> v.respectaNormele;
+
+        return in;
+    }
+
+    friend ostream &operator<<(ostream &out, const VaccinAntiGripal &v) // asemanator proiect
+    {
+        out << (Vaccin&) v;
+
+        out << ".\n->Acesta ucide tulpina " << v.tulpina << " si ";
+        if(v.respectaNormele == true)
+            out << "respecta nurmele.\n\n";
+        else
+            out << "nu respecta normele.\n\n";
+
+        return out;
+    }
+
+    ~VaccinAntiGripal()
+    {
+
+    }
+};
+
+class VaccinAntihepatic: public Vaccin
+{
+    char tipHepatita;
+    string modVaccinare;
+
+public:
+
+    VaccinAntihepatic(): Vaccin()// asemanator cu priect pers
+    {
+        tipHepatita ='N';
+        modVaccinare = "necunoscut";
+    }
+
+    VaccinAntihepatic(string nume, float pret, float temp, string lista, char tip, string mod): Vaccin(nume,pret,temp,lista)// asemanator proiect
+    {
+        this -> tipHepatita = tip;
+        modVaccinare = mod;
+    }
+
+    void afisareSchemaVaccinare()
+    {
+        cout << "Pentru A si B, la copii cu varsta mai mica de 1 an se adminstreaza 2 injectari la un interval de o luna, a treia injectare dupa 6 luni de la prima administrare, la adulti conform schemei de imunizare recomandată de medic.\nCel Antihepatita C doar la recomandarea medicului.";
+    }
+
+    friend istream &operator>>(istream &in, VaccinAntihepatic &v)//asemanator proiect;
+    {
+        in >> (Vaccin&) v;
+
+        cout << "\nIntrodu tipul: ";
+        in >> v.tipHepatita;
+        cout << "\nIntrodu mod vaccinare: ";
+        in >> v.modVaccinare;
+
+        return in;
+    }
+
+    friend ostream &operator<<(ostream &out, const VaccinAntihepatic &v) // asemanator proiect
+    {
+        out << (Vaccin&) v;
+
+        out << ".\n->Acesta este pt hepatita " << v.tipHepatita << " si se adminsitreaza ";
+        out << v.modVaccinare << "\n\n";
+
+        return out;
+    }
+
+    ~VaccinAntihepatic()
+    {
+
+    }
+};
+
+class VaccinSarsCov2: public Vaccin
+{
+    string listaReactii;
+    float procent;
+    string listaMedicamente;
+
+public:
+
+    VaccinSarsCov2(): Vaccin()// asemanator cu priect pers
+    {
+        listaMedicamente ="niciunul";
+        procent = 0;
+        listaReactii ="niciuna";
+    }
+
+    VaccinSarsCov2(string nume, float pret, float temp, string lista, string listaMedicamente, string listaReactii, float procent): Vaccin(nume,pret,temp,lista)// asemanator proiect
+    {
+        this -> listaMedicamente = listaMedicamente;
+        this -> procent = procent;
+        this -> listaReactii = listaReactii;
+    }
+
+    void afisareSchemaVaccinare()
+    {
+        cout << "Pentru SarsCov2 se administreaza persoanelor cu varsta de peste 16 ani, 2 doze la o perioada de 21 zile.";
+
+    }
+
+    friend istream &operator>>(istream &in, VaccinSarsCov2 &v)//asemanator proiect;
+    {
+        in >> (Vaccin&) v;
+
+        cout << "\nIntrodu lista reactii: ";
+        in >> v.listaReactii;
+        cout << "\nIntrodu lista medicanete: ";
+        in >> v.listaMedicamente;
+
+        cout << "\nIntrodu procent: ";
+        in >> v.procent;
+
+
+        return in;
+    }
+
+    friend ostream &operator<<(ostream &out, const VaccinSarsCov2 &v) // asemanator proiect
+    {
+        out << (Vaccin&) v;
+
+        out << ".\n->Acesta are urm reactii adverse: " << v.listaReactii << " si lista medicanetelor contraindicate este: ";
+        out << v.listaMedicamente << ". In plus are o eficienta de " << v.procent << "%.\n\n";
+
+        return out;
+    }
+
+    ~VaccinSarsCov2()
+    {
+
+    }
+};
+
+class Comanda
+{
+    int id;
+    string data;
+    string numeProducator;
+    string vaccin1;
+    string vaccin2;
+    string vaccin3;
+    int cantitate1;
+    int cantitate2;
+    int cantitate3;
+
+public:
+
+    Comanda()
+    {
+        id = 0;
+        numeProducator ="null";
+        vaccin1 = "null";
+        cantitate1 = 0;
+        cantitate2 = 0;
+        cantitate3 = 0;
+        vaccin2 = "null";
+        vaccin3 ="null";
+    }
+
+     Comanda(string data, string nume, string vaccin1, int cantitate)
+    {
+        id = 1;
+        numeProducator = nume;
+        this -> vaccin1 = vaccin1;
+        cantitate1 = cantitate;
+         cantitate2 = 0;
+        cantitate3 = 0;
+        vaccin2 = "null";
+        vaccin3 ="null";
+
+    }
+
+    Comanda(string data, string nume, string vaccin1, int cantitate1, string vaccin2, int cantitate2)
+    {
+        id = 2;
+        numeProducator = nume;
+        this -> vaccin1 = vaccin2;
+        this ->cantitate1 = cantitate1;
+        this -> vaccin2 = vaccin2;
+        this ->cantitate2 = cantitate2;
+         vaccin3 ="null";
+          cantitate3 = 0;
+    }
+
+    Comanda(string data, string nume, string vaccin1, int cantitate1, string vaccin2, int cantitate2, string vaccin3, int Cantitate3)
+    {
+        id = 3;
+        numeProducator = nume;
+        this -> vaccin1 = vaccin2;
+        this -> cantitate1 = cantitate1;
+        this -> vaccin2 = vaccin2;
+        this -> cantitate2 = cantitate2;
+        this -> vaccin3 = vaccin3;
+        this -> cantitate3 = cantitate3;
+    }
+
+
+    ~Comanda()
+    {
+
+    }
+};
+
+class ListaComenzi
+{
+    vector<Comanda> comandaa;
+
+public:
+
+    ListaComenzi()
+    {
+
+    }
+
+    ListaComenzi(Comanda a)
+    {
+        comandaa.push_back(a);
+    }
+
+    ListaComenzi &operator=(const ListaComenzi &l)
+    {
+        if(this != &l)
+        {
+            for(int i = 0; i<(int)comandaa.size(); i++)
+                this -> comandaa[i] =l.comandaa[i];
+        }
+
+        return *this;
+    }
+
+        ListaComenzi &operator+(Comanda c)
+    {
+        comandaa.push_back(c);
+
+        return *this;
+    }
+
+    friend ostream &operator<< (ostream &out, const ListaComenzi &l)
+    {
+        for(int i = 0; i < (int)comandaa.size(); i++)
+            out << i << ". " << p.comandaa[i] << "\n";
+
+        return out;
+    }
+
+};
+
+int main()
+{
+    VaccinAntiGripal a;
+    VaccinAntihepatic b;
+    VaccinSarsCov2 c;
+    //cin >> a >> b >> c;
+    //cout << a << b << c;
+    //a.afisareSchemaVaccinare();
+     b.afisareSchemaVaccinare();
+
+   // Vaccin* lista[3];
+//    lista[0]=new VaccinAntigripal();
+    //lista[1]=new VaccinAntihepatic ();
+    //lista[2]=new VaccinAntiSarsCov2();
+    //for(int i=0; i<3; i++)
+//lista[i]-> afisareSchemaVaccinare();
+
+    //Comanda com1("20-12-2020", "SpitalX", "AntiSarsCov2",20);
+
+}
