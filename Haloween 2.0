@@ -1,0 +1,234 @@
+#include <iostream>
+#include <vector>
+#include <cstring>
+#include <list>
+
+using namespace std;
+
+class Decoratiune
+{
+private:
+    string numeDecoratiune;
+    float pretDecoratiune;
+    string culoareDecoratiune;
+    bool reciclabila;
+
+public:
+    Decoratiune()
+    {
+        numeDecoratiune = "Unknown";
+        pretDecoratiune = 0;
+        culoareDecoratiune ="NULL";
+        reciclabila = false;
+    }
+
+    Decoratiune(string nume, float pret, string culoare, bool recicle)
+    {
+        numeDecoratiune = nume;
+        pretDecoratiune = pret;
+        culoareDecoratiune = culoare;
+        reciclabila = recicle;
+    }
+
+    float pret()
+    {
+        return pretDecoratiune;
+    }
+
+    string getCuloare()
+    {
+        return culoareDecoratiune;
+    }
+
+    bool getReciclabila()
+    {
+        return reciclabila;
+    }
+
+    float getPret()
+    {
+        return this -> pretDecoratiune;
+    }
+
+    friend ostream &operator<< (ostream &out, const Decoratiune d)
+    {
+        out << "->Decoaratunea " << d.numeDecoratiune << " costa " << d.pretDecoratiune << "lei, este de culoare " << d.culoareDecoratiune;
+        if(d.reciclabila == true)
+            out << " si este reciclabila";
+        else
+            out << " si nu este reciclabila";
+
+        return out;
+    }
+
+    ~Decoratiune()
+    {
+    }
+};
+
+class listaProduse
+{
+    vector<Decoratiune> lista;
+    int numarElemente;
+    float totalBani;
+
+public:
+    listaProduse()
+    {
+        numarElemente = 0;
+        totalBani = 0;
+
+    }
+
+    listaProduse(Decoratiune a)
+    {
+        lista.push_back(a);
+        totalBani = a.getPret();
+        numarElemente = 1;
+
+    }
+
+    float pret()
+    {
+        return totalBani;
+    }
+
+    void remove(int i)
+    {
+        numarElemente--;
+        totalBani = totalBani - lista[i].getPret();
+        lista.erase(lista.begin()+i);
+    }
+
+    listaProduse &operator=(const listaProduse &l)
+    {
+        if(this != &l)
+        {
+            this -> totalBani = l.totalBani;
+            this -> numarElemente = l.numarElemente;
+
+            for(int i = 0; i<numarElemente; i++)
+                this -> lista[i] =l.lista[i];
+        }
+
+        return *this;
+    }
+
+    listaProduse &operator+(Decoratiune d)
+    {
+        lista.push_back(d);
+        totalBani = totalBani + d.getPret();
+        numarElemente++;
+
+        return *this;
+    }
+
+    friend ostream &operator<< (ostream &out, const listaProduse &p)
+    {
+        for(int i = 0; i < p.numarElemente; i++)
+            out << i << ". " << p.lista[i] << "\n";
+
+        return out;
+    }
+
+
+    Decoratiune operator[](int i)
+    {
+        return lista[i];
+    }
+
+    ~listaProduse()
+    {
+    }
+};
+
+
+int main()
+{
+    Decoratiune d1("gloaba", 10,"bejiuliu", true), d2("glob",33.4,"albastru",false);
+    listaProduse b;
+    b = b+d2+d1;
+
+    int n;
+
+    do
+    {
+        cout << "====== Bine ai venit la produsele lui Bobo =======\n\n\n";
+        cout << "1. Afisare lista\n2. Sterge un element\n3. Adauga elemntul d2\n4. Afiseaza pretul unui produs din lista\n5. Afiseaza pretul total\n6. Spune daca un anumit produs e reciclabil\n7.Iesi\n\n";
+
+        cout << "Introdu numarul: ";
+        cin >> n;
+
+        switch(n)
+        {
+            case 1:
+            {
+                cout << b << "\n\n===== Am afisat lista lui Bobo ======\n\n";
+                break;
+            }
+
+            case 2:
+            {
+                cout << "Aege pozitia elemetului din lista de mai jos:\n";
+                cout << b << "\n\nIntrodu pozitia: ";
+                int q;
+                cin >> q;
+                b.remove(q);
+                cout << "\n\n=====Elementul a fost sters=====\n\n";
+                break;
+            }
+
+            case 3:
+            {
+                b = b + d2;
+                cout << "\n==== Elem a fost adaugat====\n";
+                break;
+            }
+
+            case 4:
+            {
+                cout << "->Selecteaza un ele din lista de mai jos:\n\n";
+                cout << b << "\n\nIntrodu pozitia: ";
+                int q;
+                cin >> q;
+                cout << "\n\n=====Pretul este " << b[q].pret() << "\n\n";
+                break;
+            }
+
+            case 5:
+            {
+                cout << "Pretul total este de " << b.pret() << "\n\n\n";
+                break;
+            }
+
+            case 6:
+            {
+                cout << "Aege pozitia elemetului din lista de mai jos:\n";
+                cout << b << "\n\nIntrodu pozitia: ";
+                int q;
+                cin >> q;
+
+                if(b[q].getReciclabila() == true)
+                    cout << "\nProdusul este reciclabil\n\n";
+                else
+                    cout << "\nProdusul nu este reciclabil\n\n";
+                break;
+            }
+
+            case 7:
+            {
+                cout << "\n\n\n=======Adioss======\n\n\n\n";
+                break;
+            }
+
+            default:
+            {
+                cout << "\n\nAi gresit numarul:(\n\n\n";
+                break;
+            }
+        }
+    }while(n!=7);
+
+
+
+}
